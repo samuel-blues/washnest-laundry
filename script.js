@@ -27,13 +27,14 @@
    CONFIG — replace placeholder IDs before going live
    ────────────────────────────────────────────────────────── */
 const CONFIG = {
-  SHEETS_URL : 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec',
-  GA4_ID     : 'G-XXXXXXXXXX',
-  META_PIXEL : 'XXXXXXXXXXXXXXXXX',
-  GADS_ID    : 'AW-XXXXXXXXX',
-  GADS_CONV  : 'CONVERSION_LABEL',
-  COUNTER_TARGET : 847,
-  COUNTER_DURATION : 1600, // ms
+  SHEETS_URL       : 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec',
+  GA4_ID           : 'G-XXXXXXXXXX',
+  META_PIXEL       : 'XXXXXXXXXXXXXXXXX',
+  GADS_ID          : 'AW-XXXXXXXXX',
+  GADS_CONV        : 'CONVERSION_LABEL',
+  // Realistic early-launch count — update regularly as real signups come in
+  COUNTER_TARGET   : 73,
+  COUNTER_DURATION : 1400, // ms
 };
 
 /* ──────────────────────────────────────────────────────────

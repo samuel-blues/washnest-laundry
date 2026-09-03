@@ -2,7 +2,7 @@
    WASHNEST BY BERSIH.IN — style.css
    Senior UI/UX · CRO-Optimized · Mobile-First · Premium
    ============================================================
-   COLOR PALETTE (from brief)
+   COLOR PALETTE
    Navy     #0F3D66
    Aqua     #2DB6E8
    Sky      #CDEFFC
@@ -60,13 +60,13 @@
   --r-full: 999px;
 
   /* Typography */
-  --font:   'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 
   /* Transitions */
-  --ease:   cubic-bezier(.4, 0, .2, 1);
+  --ease:     cubic-bezier(.4, 0, .2, 1);
   --ease-out: cubic-bezier(0, 0, .2, 1);
-  --t:      0.26s var(--ease);
-  --t-slow: 0.45s var(--ease);
+  --t:        0.26s var(--ease);
+  --t-slow:   0.45s var(--ease);
 
   /* Layout */
   --ann-h:  42px;
@@ -162,8 +162,8 @@ summary { display: flex; }
 @media (min-width: 768px)  { .container { padding: 0 32px; } }
 @media (min-width: 1200px) { .container { padding: 0 40px; } }
 
-.w-full    { width: 100%; }
-.mt-4      { margin-top: 28px; }
+.w-full      { width: 100%; }
+.mt-4        { margin-top: 28px; }
 .text-center { text-align: center; }
 
 
@@ -353,7 +353,6 @@ p { color: var(--text-mid); line-height: 1.75; }
 
 .announcement-bar.hidden { display: none; }
 
-/* Scrolling marquee track */
 .ann-track {
   flex: 1;
   overflow: hidden;
@@ -366,7 +365,7 @@ p { color: var(--text-mid); line-height: 1.75; }
   align-items: center;
   gap: 20px;
   white-space: nowrap;
-  animation: marquee 32s linear infinite;
+  animation: marquee 38s linear infinite;
   padding-left: 100%;
 }
 
@@ -441,11 +440,12 @@ p { color: var(--text-mid); line-height: 1.75; }
 }
 
 .logo-icon {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   object-fit: contain;
   flex-shrink: 0;
+  background: white;
 }
 
 .logo-text {
@@ -549,7 +549,7 @@ p { color: var(--text-mid); line-height: 1.75; }
   font-size: .95rem;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 960px) {
   .nav-links   { display: flex; }
   .hamburger   { display: none; }
   .mobile-menu { display: none !important; }
@@ -637,6 +637,25 @@ p { color: var(--text-mid); line-height: 1.75; }
   flex-direction: column;
   gap: 0;
   color: white;
+}
+
+/* Hero logo in copy area */
+.hero-logo-wrap {
+  margin-bottom: 20px;
+  max-width: 280px;
+}
+
+.hero-logo-img {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--r-md);
+  /* White background logo on dark hero — add subtle backdrop */
+  background: rgba(255,255,255,.10);
+  padding: 12px 16px;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.18);
 }
 
 /* Launch badge */
@@ -1055,9 +1074,9 @@ p { color: var(--text-mid); line-height: 1.75; }
 }
 
 @media (max-width: 640px) {
-  .eco-strip-inner  { gap: 4px; padding: 14px 16px; }
-  .eco-divider      { display: none; }
-  .eco-item         { font-size: .78rem; padding: 5px 10px; }
+  .eco-strip-inner { gap: 4px; padding: 14px 16px; }
+  .eco-divider     { display: none; }
+  .eco-item        { font-size: .78rem; padding: 5px 10px; }
 }
 
 
@@ -1263,9 +1282,168 @@ p { color: var(--text-mid); line-height: 1.75; }
 
 
 /* ============================================================
-   15. HOW IT WORKS SECTION
+   15. GALLERY SECTION (NEW)
    ============================================================ */
-.how-section { background: var(--lt-gray); }
+.gallery-section { background: var(--lt-gray); }
+
+/* 2-column asymmetric grid: large left, two stacked right */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+@media (min-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: 1.35fr 1fr;
+    gap: 16px;
+    align-items: stretch;
+  }
+}
+
+.gallery-item {
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  background: var(--navy-dark);
+}
+
+.gallery-main { min-height: 380px; }
+
+.gallery-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gallery-half {
+  flex: 1;
+  min-height: 180px;
+}
+
+@media (min-width: 768px) {
+  .gallery-main  { min-height: 480px; }
+  .gallery-half  { min-height: 0; }
+}
+
+/* Image wrap with hover zoom */
+.gallery-img-wrap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .65s var(--ease);
+  min-height: 240px;
+}
+
+@media (min-width: 768px) {
+  .gallery-main  .gallery-img { min-height: 480px; }
+  .gallery-half  .gallery-img { min-height: 220px; }
+}
+
+.gallery-item:hover .gallery-img { transform: scale(1.05); }
+
+/* Caption overlay */
+.gallery-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(8,40,71,.92) 0%, rgba(8,40,71,.55) 60%, transparent 100%);
+  padding: 48px 20px 20px;
+  transform: translateY(6px);
+  transition: transform var(--t);
+}
+
+.gallery-item:hover .gallery-caption { transform: translateY(0); }
+
+.gallery-cap-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gallery-cap-tag {
+  display: inline-block;
+  background: var(--aqua);
+  color: white;
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: var(--r-full);
+  width: fit-content;
+  margin-bottom: 4px;
+}
+
+.gallery-cap-inner strong {
+  display: block;
+  color: white;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.gallery-cap-inner p {
+  color: rgba(255,255,255,.72);
+  font-size: .78rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Gallery feature badges row */
+.gallery-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.gf-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-full);
+  padding: 8px 18px;
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--text-mid);
+  box-shadow: var(--shadow-xs);
+  transition: var(--t);
+}
+
+.gf-item:hover {
+  border-color: rgba(45,182,232,.35);
+  color: var(--navy);
+  background: var(--sky-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.gf-icon { font-size: 1rem; line-height: 1; }
+
+/* Gallery CTA */
+.gallery-cta {
+  text-align: center;
+  margin-top: 4px;
+}
+
+
+/* ============================================================
+   16. HOW IT WORKS SECTION
+   ============================================================ */
+.how-section { background: white; }
 
 /* Service tabs */
 .how-tabs {
@@ -1401,9 +1579,9 @@ p { color: var(--text-mid); line-height: 1.75; }
 
 
 /* ============================================================
-   16. BENEFITS SECTION
+   17. BENEFITS SECTION
    ============================================================ */
-.benefits-section { background: white; }
+.benefits-section { background: var(--lt-gray); }
 
 .benefits-grid {
   display: grid;
@@ -1508,16 +1686,16 @@ p { color: var(--text-mid); line-height: 1.75; }
 
 
 /* ============================================================
-   17. UVP SECTION
+   18. UVP SECTION
    ============================================================ */
-.uvp-section { background: var(--lt-gray); }
+.uvp-section { background: white; }
 
 .uvp-inner {
   max-width: 840px;
   margin: 0 auto;
   text-align: center;
   padding: 52px 48px;
-  background: white;
+  background: var(--lt-gray);
   border-radius: var(--r-xl);
   border: 1.5px solid var(--border);
   box-shadow: var(--shadow-md);
@@ -1535,8 +1713,18 @@ p { color: var(--text-mid); line-height: 1.75; }
 
 @media (max-width: 640px) { .uvp-inner { padding: 36px 24px; } }
 
-.uvp-logo { margin: 0 auto 26px; }
-.uvp-logo img { margin: 0 auto; max-width: 240px; object-fit: contain; }
+/* UVP logo — horizontal logo on light background */
+.uvp-logo {
+  margin: 0 auto 26px;
+}
+
+.uvp-logo img {
+  margin: 0 auto;
+  max-width: 260px;
+  object-fit: contain;
+  /* The horizontal logo has white bg, looks clean on light bg */
+  border-radius: var(--r-md);
+}
 
 .uvp-quote {
   font-size: clamp(.95rem, 1.8vw, 1.12rem);
@@ -1584,9 +1772,9 @@ p { color: var(--text-mid); line-height: 1.75; }
 
 
 /* ============================================================
-   18. TESTIMONIALS
+   19. TESTIMONIALS
    ============================================================ */
-.testimoni-section { background: white; }
+.testimoni-section { background: var(--lt-gray); }
 
 .testi-grid {
   display: grid;
@@ -1689,7 +1877,7 @@ p { color: var(--text-mid); line-height: 1.75; }
 
 /* Waitlist counter */
 .waitlist-counter {
-  background: var(--lt-gray);
+  background: white;
   border: 1.5px solid var(--border);
   border-radius: var(--r-xl);
   padding: 26px 30px;
@@ -1738,7 +1926,7 @@ p { color: var(--text-mid); line-height: 1.75; }
 
 
 /* ============================================================
-   19. MEMBERSHIP / CTA SECTION
+   20. MEMBERSHIP / CTA SECTION
    ============================================================ */
 .cta-member-section {
   background: linear-gradient(140deg, var(--navy) 0%, #1155A6 52%, var(--aqua-dark) 100%);
@@ -1884,9 +2072,9 @@ p { color: var(--text-mid); line-height: 1.75; }
 
 
 /* ============================================================
-   20. FAQ SECTION
+   21. FAQ SECTION
    ============================================================ */
-.faq-section { background: var(--lt-gray); }
+.faq-section { background: white; }
 
 .faq-list {
   max-width: 800px;
@@ -1969,7 +2157,7 @@ p { color: var(--text-mid); line-height: 1.75; }
 
 
 /* ============================================================
-   21. FOOTER
+   22. FOOTER
    ============================================================ */
 .footer {
   background: var(--navy-dark);
@@ -1989,12 +2177,17 @@ p { color: var(--text-mid); line-height: 1.75; }
 }
 
 /* Brand column */
+/* Footer logo: stacked variant on dark bg */
 .footer-logo-img {
-  max-width: 160px;
+  max-width: 140px;
+  height: auto;
   object-fit: contain;
   margin-bottom: 12px;
-  /* Slight brightness boost on dark bg */
-  filter: brightness(1.1);
+  border-radius: var(--r-sm);
+  /* slight brightness for visibility on dark bg */
+  filter: brightness(1.08) contrast(1.05);
+  background: rgba(255,255,255,.08);
+  padding: 8px;
 }
 
 .footer-tagline {
@@ -2101,9 +2294,22 @@ p { color: var(--text-mid); line-height: 1.75; }
   color: rgba(255,255,255,.42) !important;
 }
 
+/* Footer icon (monochrome variant) */
+.footer-icon-mono {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  opacity: .5;
+  vertical-align: middle;
+  flex-shrink: 0;
+  border-radius: 3px;
+  filter: grayscale(1) brightness(2);
+}
+
 
 /* ============================================================
-   22. STICKY CTA MOBILE
+   23. STICKY CTA MOBILE
    ============================================================ */
 .sticky-cta-mobile {
   position: fixed;
@@ -2127,11 +2333,11 @@ p { color: var(--text-mid); line-height: 1.75; }
   border-radius: var(--r-full);
 }
 
-@media (min-width: 900px) { .sticky-cta-mobile { display: none !important; } }
+@media (min-width: 960px) { .sticky-cta-mobile { display: none !important; } }
 
 
 /* ============================================================
-   23. FLOATING WHATSAPP
+   24. FLOATING WHATSAPP
    ============================================================ */
 .wa-float {
   position: fixed;
@@ -2172,11 +2378,11 @@ p { color: var(--text-mid); line-height: 1.75; }
 
 .wa-float:hover .wa-tooltip { opacity: 1; }
 
-@media (min-width: 900px) { .wa-float { bottom: 28px; right: 28px; } }
+@media (min-width: 960px) { .wa-float { bottom: 28px; right: 28px; } }
 
 
 /* ============================================================
-   24. SCROLL TO TOP BUTTON
+   25. SCROLL TO TOP BUTTON
    ============================================================ */
 .scroll-top-btn {
   position: fixed;
@@ -2206,13 +2412,13 @@ p { color: var(--text-mid); line-height: 1.75; }
   transform: translateY(-2px);
 }
 
-@media (min-width: 900px) {
+@media (min-width: 960px) {
   .scroll-top-btn { bottom: 92px; right: 28px; }
 }
 
 
 /* ============================================================
-   25. THANK YOU POPUP
+   26. THANK YOU POPUP
    ============================================================ */
 .popup-overlay {
   position: fixed;
@@ -2272,8 +2478,16 @@ p { color: var(--text-mid); line-height: 1.75; }
 
 .popup-x-close:hover { background: var(--mid-gray); color: var(--text-dark); }
 
+/* Popup logo — stacked variant */
 .popup-logo { margin-bottom: 14px; }
-.popup-logo img { margin: 0 auto; max-width: 130px; object-fit: contain; }
+
+.popup-logo-img {
+  margin: 0 auto;
+  max-width: 110px;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--r-sm);
+}
 
 .popup-icon { font-size: 3rem; margin-bottom: 6px; line-height: 1; }
 
@@ -2341,7 +2555,7 @@ p { color: var(--text-mid); line-height: 1.75; }
 
 
 /* ============================================================
-   26. PRINT STYLES
+   27. PRINT STYLES
    ============================================================ */
 @media print {
   .announcement-bar, .navbar, .sticky-cta-mobile,
@@ -2357,18 +2571,23 @@ p { color: var(--text-mid); line-height: 1.75; }
 
 
 /* ============================================================
-   27. TOUCH DEVICE ADJUSTMENTS
+   28. TOUCH DEVICE ADJUSTMENTS
    ============================================================ */
 .touch-device .benefit-card:hover,
 .touch-device .problem-card:hover,
 .touch-device .testi-card:hover,
-.touch-device .sol-img-main:hover img {
+.touch-device .sol-img-main:hover img,
+.touch-device .gallery-item:hover .gallery-img {
   transform: none;
+}
+
+.touch-device .gallery-item:hover .gallery-caption {
+  transform: translateY(6px);
 }
 
 
 /* ============================================================
-   28. ACCESSIBILITY UTILITIES
+   29. ACCESSIBILITY UTILITIES
    ============================================================ */
 .sr-only {
   position: absolute;
@@ -2400,14 +2619,27 @@ p { color: var(--text-mid); line-height: 1.75; }
 
 
 /* ============================================================
-   29. FOOTER MONO ICON (4.png grayscale logo in footer bar)
+   30. IMAGE QUALITY HELPERS
+   All brand images — crisp rendering, no blurry upscaling
    ============================================================ */
+.hero-logo-img,
+.hero-room-img,
+.gallery-img,
+.sol-img-main img,
+.sol-img-float img,
+.facility-img,
+.member-card-img,
+.uvp-logo img,
+.footer-logo-img,
+.popup-logo-img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Round logo icons (icon-only variants) cleanly */
+.logo-icon,
 .footer-icon-mono {
-  display: inline-block;
-  width: 18px;
-  height: 18px;
+  border-radius: 50%;
   object-fit: contain;
-  opacity: .55;
-  vertical-align: middle;
-  flex-shrink: 0;
+  background: white;
 }
