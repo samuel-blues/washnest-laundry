@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initActiveNav();
   initCounterAnimation();
   injectStructuredData();
+  initLeadTracking();
 });
 
 
@@ -544,6 +545,98 @@ async function submitToSheets(payload) {
 
   if (!res.ok) throw new Error('HTTP ' + res.status);
   return res.json();
+}
+
+
+/* ──────────────────────────────────────────────────────────
+   LEAD TRACKING — Meta Pixel 'Lead' on CTA & WhatsApp clicks
+   ──────────────────────────────────────────────────────────
+   Fires fbq('track', 'Lead') when a user clicks:
+     · Any "#waitlist" scroll-CTA button (intent to sign up)
+     · Any wa.me WhatsApp link (direct contact intent)
+     · The floating WhatsApp button (.wa-float)
+
+   The form submit button is intentionally excluded here —
+   it fires Lead via fireConversionEvents() on successful
+   validation to avoid double-counting form submissions.
+
+   Uses event delegation (one listener on document) so it
+   works regardless of when elements are rendered or if new
+   CTAs are added later. A typeof guard prevents console
+   errors when an ad-blocker removes the fbq function.
+   ────────────────────────────────────────────────────────── */
+function initLeadTracking() {
+
+  /**
+   * Fire a Pixel Lead event with a named content label.
+   * Silent no-op if fbq is blocked by an ad-blocker.
+   * @param {string} contentName — shown in Events Manager for segmentation
+   */
+  function trackLead(contentName) {
+    if (typeof fbq !== 'function') return;
+    fbq('track', 'Lead', {
+      content_name    : contentName,
+      content_category: 'WashNest CTA',
+    });
+  }
+
+  /**
+   * Determine the content_name label based on the clicked element.
+   * Returns null for elements that should NOT fire Lead
+   * (e.g. the form submit button — handled by fireConversionEvents).
+   * @param {HTMLElement} el
+   * @returns {string|null}
+   */
+  function resolveLabel(el) {
+    // Walk up to 4 levels to find the actionable element
+    // (handles clicks on child SVG/span inside a button or <a>)
+    let node = el;
+    for (let i = 0; i < 4; i++) {
+      if (!node || node === document.body) break;
+
+      const tag  = node.tagName;
+      const href = (node.getAttribute && node.getAttribute('href')) || '';
+      const cls  = (node.className && typeof node.className === 'string')
+                     ? node.className : '';
+      const id   = node.id || '';
+
+      // ── WhatsApp links (wa.me) ──────────────────────────
+      if (tag === 'A' && href.includes('wa.me')) {
+        // Distinguish floating button from inline text links
+        if (cls.includes('wa-float')) return 'WhatsApp Float Button';
+        if (cls.includes('btn'))      return 'WhatsApp CTA Button';
+        return 'WhatsApp Link';
+      }
+
+      // ── "#waitlist" scroll CTAs ─────────────────────────
+      if (tag === 'A' && href === '#waitlist') {
+        if (id === 'stickyCta' || cls.includes('sticky-cta'))
+          return 'Sticky CTA – Waitlist';
+        if (cls.includes('mob-cta'))
+          return 'Mobile Menu CTA – Waitlist';
+        if (cls.includes('btn-nav'))
+          return 'Navbar CTA – Waitlist';
+        return 'CTA Button – Waitlist';
+      }
+
+      // ── Explicit exclusions — handled elsewhere ─────────
+      // Form submit fires Lead via fireConversionEvents()
+      if (tag === 'BUTTON' && id === 'submitBtn') return null;
+      // Popup close is not a conversion action
+      if (tag === 'BUTTON' && id === 'popupClose')  return null;
+      if (tag === 'BUTTON' && id === 'popupXClose')  return null;
+
+      node = node.parentElement;
+    }
+    return null;
+  }
+
+  // Single delegated listener — passive false so we don't
+  // interfere with default navigation behaviour
+  document.addEventListener('click', function (e) {
+    const label = resolveLabel(e.target);
+    if (label) trackLead(label);
+  });
 }
 
 
