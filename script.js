@@ -27,14 +27,14 @@
    CONFIG — replace placeholder IDs before going live
    ────────────────────────────────────────────────────────── */
 const CONFIG = {
-  SHEETS_URL       : 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec',
-  GA4_ID           : 'G-XXXXXXXXXX',
-  META_PIXEL       : 'XXXXXXXXXXXXXXXXX',
-  GADS_ID          : 'AW-XXXXXXXXX',
-  GADS_CONV        : 'CONVERSION_LABEL',
+  SHEETS_URL: 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec',
+  GA4_ID: 'G-XXXXXXXXXX',
+  META_PIXEL: 'XXXXXXXXXXXXXXXXX',
+  GADS_ID: 'AW-XXXXXXXXX',
+  GADS_CONV: 'CONVERSION_LABEL',
   // Realistic early-launch count — update regularly as real signups come in
-  COUNTER_TARGET   : 73,
-  COUNTER_DURATION : 1400, // ms
+  COUNTER_TARGET: 73,
+  COUNTER_DURATION: 1400, // ms
 };
 
 /* ──────────────────────────────────────────────────────────
@@ -73,8 +73,8 @@ function detectTouchDevice() {
    ANNOUNCEMENT BAR
    ────────────────────────────────────────────────────────── */
 function initAnnouncementBar() {
-  const bar    = document.getElementById('announcementBar');
-  const close  = document.getElementById('annClose');
+  const bar = document.getElementById('announcementBar');
+  const close = document.getElementById('annClose');
   const navbar = document.getElementById('navbar');
   if (!bar || !close) return;
 
@@ -97,7 +97,7 @@ function initAnnouncementBar() {
    NAVBAR — scroll shadow + ann-gone sync
    ────────────────────────────────────────────────────────── */
 function initNavbar() {
-  const navbar      = document.getElementById('navbar');
+  const navbar = document.getElementById('navbar');
   const scrollTopBtn = document.getElementById('scrollTopBtn');
   if (!navbar) return;
 
@@ -116,7 +116,7 @@ function initNavbar() {
    MOBILE MENU
    ────────────────────────────────────────────────────────── */
 function initMobileMenu() {
-  const hamburger  = document.getElementById('hamburger');
+  const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
   if (!hamburger || !mobileMenu) return;
 
@@ -173,12 +173,12 @@ function initSmoothScroll() {
 
       e.preventDefault();
 
-      const ann   = document.getElementById('announcementBar');
-      const nav   = document.getElementById('navbar');
-      const annH  = (ann && !ann.classList.contains('hidden')) ? (ann.offsetHeight || 42) : 0;
-      const navH  = nav ? nav.offsetHeight : 68;
+      const ann = document.getElementById('announcementBar');
+      const nav = document.getElementById('navbar');
+      const annH = (ann && !ann.classList.contains('hidden')) ? (ann.offsetHeight || 42) : 0;
+      const navH = nav ? nav.offsetHeight : 68;
       const offset = annH + navH + 16;
-      const top    = target.getBoundingClientRect().top + window.scrollY - offset;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
 
       window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
     });
@@ -203,14 +203,14 @@ function initAOS() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
-      const el    = entry.target;
+      const el = entry.target;
       const delay = parseInt(el.dataset.aosDelay || '0', 10);
       setTimeout(() => el.classList.add('aos-animate'), delay);
       observer.unobserve(el);
     });
   }, {
-    threshold  : 0.10,
-    rootMargin : '0px 0px -36px 0px',
+    threshold: 0.10,
+    rootMargin: '0px 0px -36px 0px',
   });
 
   elements.forEach(el => observer.observe(el));
@@ -222,7 +222,7 @@ function initAOS() {
    ────────────────────────────────────────────────────────── */
 function initActiveNav() {
   const sections = Array.from(document.querySelectorAll('section[id]'));
-  const links    = document.querySelectorAll('.nav-links a');
+  const links = document.querySelectorAll('.nav-links a');
   if (!sections.length || !links.length) return;
 
   const handler = throttle(() => {
@@ -248,7 +248,7 @@ function initActiveNav() {
    HOW IT WORKS — TAB SWITCHER
    ────────────────────────────────────────────────────────── */
 function initHowTabs() {
-  const tabs   = document.querySelectorAll('.how-tab');
+  const tabs = document.querySelectorAll('.how-tab');
   const panels = document.querySelectorAll('.how-panel');
   if (!tabs.length || !panels.length) return;
 
@@ -276,7 +276,7 @@ function initHowTabs() {
     tab.addEventListener('keydown', e => {
       let newIndex = index;
       if (e.key === 'ArrowRight') newIndex = (index + 1) % tabs.length;
-      if (e.key === 'ArrowLeft')  newIndex = (index - 1 + tabs.length) % tabs.length;
+      if (e.key === 'ArrowLeft') newIndex = (index - 1 + tabs.length) % tabs.length;
       if (newIndex !== index) {
         e.preventDefault();
         tabs[newIndex].focus();
@@ -302,7 +302,7 @@ function initScrollTop() {
    Hide when the #waitlist form card is visible; show otherwise.
    ────────────────────────────────────────────────────────── */
 function initStickyCtaMobile() {
-  const cta  = document.getElementById('stickyCta');
+  const cta = document.getElementById('stickyCta');
   const form = document.getElementById('waitlist');
   if (!cta || !form) return;
 
@@ -345,10 +345,10 @@ function animateCount(el, from, to, duration) {
   const start = performance.now();
 
   function tick(now) {
-    const elapsed  = now - start;
+    const elapsed = now - start;
     const progress = Math.min(elapsed / duration, 1);
-    const eased    = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-    const current  = Math.floor(from + (to - from) * eased);
+    const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+    const current = Math.floor(from + (to - from) * eased);
 
     el.textContent = current.toLocaleString('id-ID');
 
@@ -376,25 +376,25 @@ function incrementCounter() {
 /** Validation rules per field */
 const RULES = {
   nama: {
-    required : true,
+    required: true,
     minLength: 3,
-    messages : {
-      empty  : 'Nama lengkap wajib diisi.',
-      short  : 'Nama minimal 3 karakter.',
+    messages: {
+      empty: 'Nama lengkap wajib diisi.',
+      short: 'Nama minimal 3 karakter.',
     },
   },
   wa: {
     required: true,
-    pattern : /^(\+62|08)\d{7,13}$/,
+    pattern: /^(\+62|08)\d{7,13}$/,
     messages: {
-      empty  : 'Nomor WhatsApp wajib diisi.',
+      empty: 'Nomor WhatsApp wajib diisi.',
       invalid: 'Format tidak valid. Contoh: 08123456789 atau +6281234567890',
     },
   },
 };
 
 function initForm() {
-  const form      = document.getElementById('waitlistForm');
+  const form = document.getElementById('waitlistForm');
   const submitBtn = document.getElementById('submitBtn');
   if (!form || !submitBtn) return;
 
@@ -425,18 +425,23 @@ function initForm() {
     const wa   = document.getElementById('wa').value.trim().replace(/\s/g, '');
     const kota = (document.getElementById('kota') || {}).value?.trim() || '';
 
+    // ── Fire conversion events FIRST, synchronously, before any await ──
+    // Pixel beacons use sendBeacon/XHR under the hood and must be called
+    // as close to the user gesture as possible to avoid being dropped by
+    // the browser when the page transitions or the async stack yields.
+    fireConversionEvents(nama, wa);
+
     setSubmitLoading(true);
 
     try {
       await submitToSheets({ nama, wa, kota });
     } catch (err) {
-      // Non-blocking — we still fire conversion events and show popup
+      // Non-blocking — conversion events already fired above
       console.warn('[WashNest] Sheets submission error:', err.message);
     } finally {
       setSubmitLoading(false);
     }
 
-    fireConversionEvents(nama, wa);
     showThankYouPopup(nama);
     incrementCounter();
   });
@@ -448,12 +453,12 @@ function initForm() {
  * @returns {boolean}  — true if valid
  */
 function validateField(id) {
-  const el    = document.getElementById(id);
+  const el = document.getElementById(id);
   const errEl = document.getElementById(id + '-err');
   if (!el || !RULES[id]) return true;
 
   const rule = RULES[id];
-  const val  = el.value.trim().replace(/\s/g, '');
+  const val = el.value.trim().replace(/\s/g, '');
   let msg = '';
 
   if (rule.required && !val) {
@@ -474,9 +479,9 @@ function validateField(id) {
  * @param {boolean} loading
  */
 function setSubmitLoading(loading) {
-  const btn     = document.getElementById('submitBtn');
+  const btn = document.getElementById('submitBtn');
   if (!btn) return;
-  const label   = btn.querySelector('.btn-label');
+  const label = btn.querySelector('.btn-label');
   const spinner = btn.querySelector('.btn-loading');
 
   btn.disabled = loading;
@@ -531,13 +536,13 @@ async function submitToSheets(payload) {
 
   const body = JSON.stringify({
     ...payload,
-    source    : 'washnest-landing-page',
-    userAgent : navigator.userAgent.substring(0, 200),
-    timestamp : new Date().toISOString(),
+    source: 'washnest-landing-page',
+    userAgent: navigator.userAgent.substring(0, 200),
+    timestamp: new Date().toISOString(),
   });
 
   const res = await fetch(CONFIG.SHEETS_URL, {
-    method : 'POST',
+    method: 'POST',
     // Use text/plain to avoid CORS preflight on Apps Script
     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
     body,
@@ -575,7 +580,7 @@ function initLeadTracking() {
   function trackLead(contentName) {
     if (typeof fbq !== 'function') return;
     fbq('track', 'Lead', {
-      content_name    : contentName,
+      content_name: contentName,
       content_category: 'WashNest CTA',
     });
   }
@@ -594,17 +599,17 @@ function initLeadTracking() {
     for (let i = 0; i < 4; i++) {
       if (!node || node === document.body) break;
 
-      const tag  = node.tagName;
+      const tag = node.tagName;
       const href = (node.getAttribute && node.getAttribute('href')) || '';
-      const cls  = (node.className && typeof node.className === 'string')
-                     ? node.className : '';
-      const id   = node.id || '';
+      const cls = (node.className && typeof node.className === 'string')
+        ? node.className : '';
+      const id = node.id || '';
 
       // ── WhatsApp links (wa.me) ──────────────────────────
       if (tag === 'A' && href.includes('wa.me')) {
         // Distinguish floating button from inline text links
         if (cls.includes('wa-float')) return 'WhatsApp Float Button';
-        if (cls.includes('btn'))      return 'WhatsApp CTA Button';
+        if (cls.includes('btn')) return 'WhatsApp CTA Button';
         return 'WhatsApp Link';
       }
 
@@ -623,8 +628,8 @@ function initLeadTracking() {
       // Form submit fires Lead via fireConversionEvents()
       if (tag === 'BUTTON' && id === 'submitBtn') return null;
       // Popup close is not a conversion action
-      if (tag === 'BUTTON' && id === 'popupClose')  return null;
-      if (tag === 'BUTTON' && id === 'popupXClose')  return null;
+      if (tag === 'BUTTON' && id === 'popupClose') return null;
+      if (tag === 'BUTTON' && id === 'popupXClose') return null;
 
       node = node.parentElement;
     }
@@ -642,29 +647,49 @@ function initLeadTracking() {
 
 /* ──────────────────────────────────────────────────────────
    CONVERSION EVENTS — GA4 + Meta Pixel + Google Ads
+   ──────────────────────────────────────────────────────────
+   Called synchronously BEFORE any await in the form handler
+   so the Pixel beacon fires within the same user-gesture
+   microtask and is never dropped by the browser. All calls
+   are wrapped in try/catch so ad-blockers or slow script
+   loading never causes an unhandled console error.
    ────────────────────────────────────────────────────────── */
 function fireConversionEvents(nama, wa) {
-  // GA4 — Lead event
-  if (typeof gtag === 'function') {
-    gtag('event', 'generate_lead', {
-      event_category: 'WaitingList',
-      event_label   : 'Hero Form Submission',
-      value         : 1,
-      currency      : 'IDR',
-    });
 
-    // Google Ads conversion
-    gtag('event', 'conversion', {
-      send_to: `${CONFIG.GADS_ID}/${CONFIG.GADS_CONV}`,
-    });
+  // ── Meta Pixel — Lead ──────────────────────────────────
+  // Called first: Pixel uses navigator.sendBeacon internally,
+  // which browsers prioritise when called close to a gesture.
+  // A unique eventID is attached to support server-side
+  // deduplication via the Conversions API if added later.
+  try {
+    if (typeof fbq === 'function') {
+      const eventID = 'wn_lead_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+      fbq('track', 'Lead', {
+        content_name    : 'WashNest Waiting List – Form Submit',
+        content_category: 'Laundry Service',
+      }, { eventID });
+    }
+  } catch (_err) {
+    // Silent — fbq blocked by ad-blocker or not yet initialised
   }
 
-  // Meta Pixel — Lead event
-  if (typeof fbq === 'function') {
-    fbq('track', 'Lead', {
-      content_name    : 'WashNest Waiting List',
-      content_category: 'Laundry Service',
-    });
+  // ── GA4 — generate_lead ────────────────────────────────
+  try {
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', {
+        event_category: 'WaitingList',
+        event_label   : 'Hero Form Submission',
+        value         : 1,
+        currency      : 'IDR',
+      });
+
+      // Google Ads conversion
+      gtag('event', 'conversion', {
+        send_to: `${CONFIG.GADS_ID}/${CONFIG.GADS_CONV}`,
+      });
+    }
+  } catch (_err) {
+    // Silent — gtag blocked or not yet initialised
   }
 }
 
@@ -673,13 +698,13 @@ function fireConversionEvents(nama, wa) {
    THANK YOU POPUP
    ────────────────────────────────────────────────────────── */
 function initPopup() {
-  const overlay   = document.getElementById('popupOverlay');
-  const closeBtn  = document.getElementById('popupClose');
+  const overlay = document.getElementById('popupOverlay');
+  const closeBtn = document.getElementById('popupClose');
   const xCloseBtn = document.getElementById('popupXClose');
   if (!overlay) return;
 
   // Close on primary close button
-  if (closeBtn)  closeBtn.addEventListener('click',  () => closePopup());
+  if (closeBtn) closeBtn.addEventListener('click', () => closePopup());
   if (xCloseBtn) xCloseBtn.addEventListener('click', () => closePopup());
 
   // Close on overlay backdrop click (not on the card itself)
@@ -699,9 +724,9 @@ function initPopup() {
  * @param {string} nama — full name
  */
 function showThankYouPopup(nama) {
-  const overlay  = document.getElementById('popupOverlay');
+  const overlay = document.getElementById('popupOverlay');
   const nameSpan = document.getElementById('popupName');
-  const form     = document.getElementById('waitlistForm');
+  const form = document.getElementById('waitlistForm');
   if (!overlay) return;
 
   // Personalise
@@ -746,21 +771,21 @@ function closePopup() {
    ────────────────────────────────────────────────────────── */
 function injectStructuredData() {
   const schema = {
-    '@context' : 'https://schema.org',
-    '@type'    : 'LocalBusiness',
-    'name'     : 'WashNest by Bersih.in',
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    'name': 'WashNest by Bersih.in',
     'description': 'Hybrid laundry pertama yang menggabungkan teknologi, kenyamanan, dan kepedulian lingkungan. Self service, full service, dan antar-jemput radius 10 km dengan deterjen eco-friendly.',
-    'url'      : 'https://washnest.bersih.in',
-    'logo'     : 'https://washnest.bersih.in/2.png',
-    'image'    : 'https://washnest.bersih.in/WhatsApp Image 2026-07-16 at 21.00.13.jpeg',
+    'url': 'https://washnest.bersih.in',
+    'logo': 'https://washnest.bersih.in/2.png',
+    'image': 'https://washnest.bersih.in/WhatsApp Image 2026-07-16 at 21.00.13.jpeg',
     'telephone': '+6281234567890',
-    'email'    : 'hello@bersih.in',
-    'address'  : {
-      '@type'         : 'PostalAddress',
+    'email': 'hello@bersih.in',
+    'address': {
+      '@type': 'PostalAddress',
       'addressCountry': 'ID',
     },
-    'priceRange'   : 'Rp',
-    'openingHours' : 'Mo-Su 08:00-22:00',
+    'priceRange': 'Rp',
+    'openingHours': 'Mo-Su 08:00-22:00',
     'servesCuisine': null,
     'sameAs': [
       'https://www.instagram.com/washnest.id',
@@ -768,29 +793,29 @@ function injectStructuredData() {
     ],
     'hasOfferCatalog': {
       '@type': 'OfferCatalog',
-      'name' : 'Layanan Laundry WashNest',
+      'name': 'Layanan Laundry WashNest',
       'itemListElement': [
         {
-          '@type'      : 'Offer',
+          '@type': 'Offer',
           'itemOffered': {
             '@type': 'Service',
-            'name' : 'Self Service Laundry',
+            'name': 'Self Service Laundry',
             'description': 'Layanan mandiri dengan mesin front-load premium, ruang tunggu nyaman, Wi-Fi gratis, dan deterjen eco-friendly.',
           },
         },
         {
-          '@type'      : 'Offer',
+          '@type': 'Offer',
           'itemOffered': {
             '@type': 'Service',
-            'name' : 'Full Service Laundry',
+            'name': 'Full Service Laundry',
             'description': 'Tim profesional mencuci, mengeringkan, dan merapikan pakaian Anda. Tersedia layanan reguler dan express.',
           },
         },
         {
-          '@type'      : 'Offer',
+          '@type': 'Offer',
           'itemOffered': {
             '@type': 'Service',
-            'name' : 'Antar-Jemput Laundry',
+            'name': 'Antar-Jemput Laundry',
             'description': 'Layanan pick-up dan delivery dalam radius 10 km. Pakaian dijemput dari rumah dan diantar kembali bersih wangi.',
           },
         },
@@ -798,12 +823,12 @@ function injectStructuredData() {
     },
     'founder': {
       '@type': 'Organization',
-      'name' : 'Bersih.in',
+      'name': 'Bersih.in',
     },
   };
 
   const script = document.createElement('script');
-  script.type  = 'application/ld+json';
+  script.type = 'application/ld+json';
   script.textContent = JSON.stringify(schema, null, 2);
   document.head.appendChild(script);
 }
@@ -820,10 +845,10 @@ function injectStructuredData() {
  */
 function throttle(fn, ms) {
   let lastTime = 0;
-  let timer    = null;
+  let timer = null;
 
   return function (...args) {
-    const now  = Date.now();
+    const now = Date.now();
     const wait = ms - (now - lastTime);
 
     if (wait <= 0) {
@@ -833,7 +858,7 @@ function throttle(fn, ms) {
     } else if (!timer) {
       timer = setTimeout(() => {
         lastTime = Date.now();
-        timer    = null;
+        timer = null;
         fn.apply(this, args);
       }, wait);
     }
