@@ -1,5 +1,5 @@
 /* ============================================================
-   WASHNEST BY BERSIH.IN — script.js (Kemang Pickup Edition)
+   WASHNEST BY BERSIH.IN — script.js (Jakarta Selatan Pickup Edition)
    ============================================================ */
 
 'use strict';
@@ -306,7 +306,7 @@ async function submitToSheets(payload) {
 
   const body = JSON.stringify({
     ...payload,
-    source: 'washnest-kemang-landing-page',
+    source: 'washnest-Jakarta Selatan-landing-page',
     userAgent: navigator.userAgent.substring(0, 200),
     timestamp: new Date().toISOString(),
   });
@@ -326,7 +326,7 @@ function initLeadTracking() {
     if (typeof fbq !== 'function') return;
     fbq('track', 'Lead', {
       content_name: contentName,
-      content_category: 'WashNest Kemang',
+      content_category: 'WashNest Jakarta Selatan',
     });
   }
 
@@ -373,7 +373,7 @@ function fireConversionEvents(nama, wa) {
     if (typeof fbq === 'function') {
       const eventID = 'wn_lead_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
       fbq('track', 'Lead', {
-        content_name    : 'WashNest Waiting List – Kemang Form Submit',
+        content_name    : 'WashNest Waiting List – Jakarta Selatan Form Submit',
         content_category: 'Laundry Service',
       }, { eventID });
     }
@@ -383,7 +383,7 @@ function fireConversionEvents(nama, wa) {
     if (typeof gtag === 'function') {
       gtag('event', 'generate_lead', {
         event_category: 'WaitingList',
-        event_label   : 'Kemang Form Submission',
+        event_label   : 'Jakarta Selatan Form Submission',
         value         : 1,
         currency      : 'IDR',
       });
@@ -454,13 +454,13 @@ function injectStructuredData() {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     'name': 'WashNest by Bersih.in',
-    'description': 'Layanan laundry antar jemput modern ramah lingkungan di area Kemang, Jakarta Selatan.',
+    'description': 'Layanan laundry antar jemput modern ramah lingkungan di area Jakarta Selatan, Jakarta Selatan.',
     'url': 'https://www.washnest.online',
     'telephone': '+6281234567890',
     'email': 'hello@bersih.in',
     'address': {
       '@type': 'PostalAddress',
-      'streetAddress': 'Kemang',
+      'streetAddress': 'Jakarta Selatan',
       'addressLocality': 'Jakarta Selatan',
       'addressRegion': 'DKI Jakarta',
       'addressCountry': 'ID',
