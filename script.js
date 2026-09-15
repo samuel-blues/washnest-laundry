@@ -454,7 +454,7 @@ function injectStructuredData() {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     'name': 'WashNest by Bersih.in',
-    'description': 'Layanan laundry antar jemput modern ramah lingkungan di area Jakarta Selatan, Jakarta Selatan.',
+    'description': 'Layanan laundry antar jemput modern ramah lingkungan di area Jakarta Selatan.',
     'url': 'https://www.washnest.online',
     'telephone': '+6281234567890',
     'email': 'hello@bersih.in',
