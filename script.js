@@ -373,7 +373,7 @@ function fireConversionEvents(nama, wa) {
     if (typeof fbq === 'function') {
       const eventID = 'wn_lead_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
       fbq('track', 'Lead', {
-        content_name    : 'WashNest Waiting List – Jakarta Selatan Form Submit',
+        content_name    : 'WashNest Membership – Jakarta Selatan Form Submit',
         content_category: 'Laundry Service',
       }, { eventID });
     }
