@@ -216,7 +216,12 @@ const RULES = {
     },
   },
 };
-
+  consent: {
+    required: true,
+    messages: {
+      empty: 'Centang kotak ini untuk melanjutkan pendaftaran.',
+    },
+  },
 function initForm() {
   const form = document.getElementById('waitlistForm');
   const submitBtn = document.getElementById('submitBtn');
@@ -230,14 +235,17 @@ function initForm() {
       if (el.classList.contains('error')) validateField(id);
     });
   });
-
+const consentEl = document.getElementById('consent');
+if (consentEl) {
+  consentEl.addEventListener('change', () => validateField('consent'));
+}
   form.addEventListener('submit', async e => {
     e.preventDefault();
 
     const namaOk = validateField('nama');
     const waOk   = validateField('wa');
-
-    if (!namaOk || !waOk) {
+const consentOk = validateField('consent');
+   if (!namaOk || !waOk || !consentOk) {
       const firstErr = form.querySelector('input.error');
       if (firstErr) firstErr.focus();
       return;
