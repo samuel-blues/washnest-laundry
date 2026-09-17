@@ -215,13 +215,14 @@ const RULES = {
       invalid: 'Format tidak valid. Contoh: 08123456789 atau +6281234567890',
     },
   },
-};
   consent: {
     required: true,
     messages: {
       empty: 'Centang kotak ini untuk melanjutkan pendaftaran.',
     },
   },
+};
+
 function initForm() {
   const form = document.getElementById('waitlistForm');
   const submitBtn = document.getElementById('submitBtn');
@@ -235,18 +236,21 @@ function initForm() {
       if (el.classList.contains('error')) validateField(id);
     });
   });
-const consentEl = document.getElementById('consent');
-if (consentEl) {
-  consentEl.addEventListener('change', () => validateField('consent'));
-}
+
+  const consentEl = document.getElementById('consent');
+  if (consentEl) {
+    consentEl.addEventListener('change', () => validateField('consent'));
+  }
+
   form.addEventListener('submit', async e => {
     e.preventDefault();
 
     const namaOk = validateField('nama');
     const waOk   = validateField('wa');
-const consentOk = validateField('consent');
-   if (!namaOk || !waOk || !consentOk) {
-      const firstErr = form.querySelector('input.error');
+    const consentOk = validateField('consent');
+
+    if (!namaOk || !waOk || !consentOk) {
+      const firstErr = form.querySelector('.error');
       if (firstErr) firstErr.focus();
       return;
     }
@@ -259,7 +263,7 @@ const consentOk = validateField('consent');
     setSubmitLoading(true);
 
     try {
-      await submitToSheets({ nama, wa, kota });
+      await submitToSheets({ nama, wa, kota, consent: true });
     } catch (err) {
       console.warn('[WashNest] Sheets submission error:', err.message);
     } finally {
@@ -268,6 +272,33 @@ const consentOk = validateField('consent');
 
     showThankYouPopup(nama);
   });
+}
+function validateField(id) {
+  const el = document.getElementById(id);
+  const errEl = document.getElementById(id + '-err');
+  if (!el || !RULES[id]) return true;
+
+  const rule = RULES[id];
+  let msg = '';
+
+  if (el.type === 'checkbox') {
+    if (rule.required && !el.checked) {
+      msg = rule.messages.empty;
+    }
+  } else {
+    const val = el.value.trim().replace(/\s/g, '');
+    if (rule.required && !val) {
+      msg = rule.messages.empty;
+    } else if (rule.minLength && val.length < rule.minLength) {
+      msg = rule.messages.short;
+    } else if (rule.pattern && val && !rule.pattern.test(val)) {
+      msg = rule.messages.invalid;
+    }
+  }
+
+  el.classList.toggle('error', !!msg);
+  if (errEl) errEl.textContent = msg;
+  return !msg;
 }
 
 function validateField(id) {

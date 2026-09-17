@@ -2695,3 +2695,12 @@ p { color: var(--text-mid); line-height: 1.75; }
   line-height: 1.45;
   color: #4B5563;
 }
+/* Force hero section and form visibility */
+.hero-copy,
+.hero-form-col,
+.lead-form-card,
+[data-aos] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
